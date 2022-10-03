@@ -26,16 +26,23 @@ body {
 }
 .display {
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
     height: 100px;
-    margin-top: 5px;
     background-color: #252940;
     border: 4px solid rgba(242, 227, 7, 0.5);
     border-radius: 15px;
 }
-p {
+.resultTop {
+    margin: 10px;
+    font-size: 12px;
+}
+.result {
     margin: 10px;
     font-size: 28px;
+}
+.result {
+    justify-self: flex-end;
 }
 .r1, .r2, .r3, .r4, .r5 {
     margin-top: 10px;

@@ -19,6 +19,7 @@ const zero = document.querySelector('.zero');
 const comma = document.querySelector('.comma');
 const equals = document.querySelector('.equals');
 
+const displayTop = document.querySelector('.resultTop');
 const display = document.querySelector('.result');
 
 let resultBox = [];
@@ -26,11 +27,21 @@ let number = [];
 
 display.textContent = 0;
 
+displayTop.textContent = 0;
+
+// displayFunction
+// Display = display / display Top
+//arr = number / resultBox
+
+const displayFunction = (display, arr) => {
+    display.textContent = arr.join('');
+}
+
 // Function to make a number 
 
 const addNumber = (num) => {
     number.push(num);
-    display.textContent = number.join('');
+    displayFunction(display, number);
 }
 
 // Function to erase single number
@@ -38,7 +49,7 @@ const addNumber = (num) => {
 const eraseBtn = () => {
     if (number.length > 1) {
     number.pop();
-    display.textContent = number.join('');    
+    displayFunction(display, number);    
     } else {
         number = [];
         display.textContent = 0;
@@ -52,6 +63,7 @@ const eraseAllBtn = () => {
     number = [];
     resultBox = [];
     display.textContent = 0;
+    displayTop.textContent = 0;
 }
 
 //- + function
@@ -59,10 +71,10 @@ const eraseAllBtn = () => {
 const posNeg = () => {
     if (number[0] == '-') {
         number.shift();
-        display.textContent = number.join('');
+        displayFunction(display, number);
     } else {
         number.unshift('-');
-        display.textContent = number.join('');
+        displayFunction(display, number);
     }
 }
 
@@ -70,7 +82,8 @@ const posNeg = () => {
 
 const addingFunction = () => {
     resultBox.push(number.join(''));
-    resultBox.push('+');
+    resultBox.push(' + ');
+    displayFunction(displayTop, resultBox);
     number = [];
     display.textContent = '+';
 }
@@ -79,7 +92,8 @@ const addingFunction = () => {
 
 const multiplicationFunction = () => {
     resultBox.push(number.join(''));
-    resultBox.push('*');
+    resultBox.push(' * ');
+    displayFunction(displayTop, resultBox);
     number = [];
     display.textContent = '*';
 }
@@ -88,7 +102,8 @@ const multiplicationFunction = () => {
 
 const percentFunction = () => {
     resultBox.push(number.join(''));
-    resultBox.push('%');
+    resultBox.push(' % ');
+    displayFunction(displayTop, resultBox);
     number = [];
     display.textContent = '%';
 }
@@ -97,7 +112,8 @@ const percentFunction = () => {
 
 const subtractionFunction = () => {
     resultBox.push(number.join(''));
-    resultBox.push('-');
+    resultBox.push(' - ');
+    displayFunction(displayTop, resultBox);
     number = [];
     display.textContent = '-';
 }
@@ -106,18 +122,34 @@ const subtractionFunction = () => {
 
 const divisionFunction = () => {
     resultBox.push(number.join(''));
-    resultBox.push('/');
+    resultBox.push(' / ');
+    displayFunction(displayTop, resultBox);
     number = [];
     display.textContent = '/';
+}
+
+// Comma function
+
+const commaFunction = () => {
+    number.push('.');
+    displayFunction(display, number);
 }
 
 // Equals function
 
 const equalsFunction = () => {
     resultBox.push(number.join(''));
+    displayFunction(displayTop, resultBox);
     const infNumber = resultBox.join('');
     const result = eval(infNumber);
+    number = [];
     display.textContent = result;
+}
+
+//Add Event Listner click function
+
+const aelFunction = (btn,func) => {
+    btn.addEventListener('click', func);
 }
 
 one.addEventListener('click', addNumber.bind(null, 1));
@@ -140,4 +172,5 @@ multiplication.addEventListener('click', multiplicationFunction);
 percent.addEventListener('click', percentFunction);
 subtraction.addEventListener('click', subtractionFunction);
 division.addEventListener('click', divisionFunction);
+aelFunction(comma, commaFunction);
 equals.addEventListener('click', equalsFunction);
